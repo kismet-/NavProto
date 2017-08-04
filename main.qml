@@ -3,7 +3,6 @@ import QtQuick.Window 2.2
 import QtLocation 5.9
 import QtPositioning 5.9
 
-//import QQuickMapboxGL 1.0
 
 Window {
     visible: true
@@ -32,7 +31,7 @@ Window {
             name: "mapboxgl"
 
             PluginParameter { name: "mapboxgl.access_token"; value: "pk.eyJ1Ijoia2l6IiwiYSI6ImNqNWxyeDhmdjJneTAyd21uMW1zaHR3MnMifQ.lASlqDzfQITFcUeuoFgkYg" }
-            PluginParameter { name: "mapboxgl.mapping.additional_style_urls"; value: "mapbox://styles/kiz/cj5t06sf043ny2rqd5d5u4l47" }
+            PluginParameter { name: "mapboxgl.mapping.additional_style_urls"; value: "mapbox://styles/mapbox/traffic-day-v2" }
     }
 
 
@@ -51,8 +50,6 @@ Window {
 
         searchTerm: searchQuery.text
         searchArea: QtPositioning.circle(map.center);
-
-        Component.onCompleted: { console.log(map.center); update() }
     }
 
 
@@ -62,14 +59,14 @@ Window {
             anchors.fill: parent
             plugin: mapPlugin
             zoomLevel: 14
-            tilt: 60
+            //tilt: 60
 
             MapParameter {
                 type: "source"
 
                 property var name: "trafficSource"
                 property var sourceType: "vector"
-                property var url: "mapbox://mapbox.mapbox-traffic-v1"
+                property var url: "mapbox://styles/mapbox/traffic-day-v2"
             }
 
             MapItemView {
@@ -159,6 +156,7 @@ Window {
             anchors.margins: 16
             onAccepted: {
                 console.log(text);
+                searchModel.update()
             }
         }
     }
@@ -169,7 +167,7 @@ Window {
 
         width: 760/3.2
         height: 320
-        color: "white"
+        color: "transparent"
 
         anchors.right: searchBox.right
         anchors.top: searchBox.top
@@ -182,20 +180,37 @@ Window {
         }
 
         ListView {
-            id: searchView
-            width: parent.width
-            height: parent.height
-            model: searchModel
+            id: resultsBoxList
+
             anchors.fill: parent
+            model: searchModel
+            delegate: Rectangle {
+                color: index % 2 == 0 ? "white" : "gray"
+                height: 60
+                width: resultsBox.width
+                Item {
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("clicked: " + title + " at index: " + index);
+                        resultsBoxList.currentIndex = index;
+                        console.log(resultsBoxList.currentIndex)
+                    }
+                }
+                width: resultsBox.width
+                height: 60
+                Row {
+                    }
+                    Column {
+                        spacing: 4
 
-            property variant placeSearchModel
-            signal showPlaceDetails(variant place, variant distance)
-            signal showMap()
-
-
-            }
+                        Text { text: title; font.bold: true }
+                        Text { text: place.location.address.text }
+                        }
+                    }
+                }
         }
-
-    }
+            }
+          }
 
 

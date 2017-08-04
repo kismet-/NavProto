@@ -1,5 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QMapboxGL>
+#include <QMapbox>
+
 
 int main(int argc, char *argv[])
 {

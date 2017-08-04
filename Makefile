@@ -213,7 +213,7 @@ DIST          = img/map-marker-2-24.png \
 		../../Qt/5.9.1/clang_64/mkspecs/features/exceptions.prf \
 		../../Qt/5.9.1/clang_64/mkspecs/features/yacc.prf \
 		../../Qt/5.9.1/clang_64/mkspecs/features/lex.prf \
-		NavProto.pro  main.cpp
+		NavProto.pro QQuickMapboxGL main.cpp
 QMAKE_TARGET  = NavProto
 DESTDIR       = 
 TARGET        = NavProto.app/Contents/MacOS/NavProto
@@ -595,6 +595,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents qml.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.9.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents QQuickMapboxGL $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp $(DISTDIR)/
 
 
@@ -654,7 +655,33 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean
 main.o: main.cpp ../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/QGuiApplication \
 		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/qguiapplication.h \
 		../../Qt/5.9.1/clang_64/lib/QtQml.framework/Headers/QQmlApplicationEngine \
-		../../Qt/5.9.1/clang_64/lib/QtQml.framework/Headers/qqmlapplicationengine.h
+		../../Qt/5.9.1/clang_64/lib/QtQml.framework/Headers/qqmlapplicationengine.h \
+		QMapboxGL \
+		qmapboxgl.hpp \
+		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		QMapbox \
+		qmapbox.hpp \
+		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/QColor \
+		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/qcolor.h \
+		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/QList \
+		../../Qt/5.9.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QPair \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qpair.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QMargins \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qmargins.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QPointF \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qpoint.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QSize \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qsize.h \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../Qt/5.9.1/clang_64/lib/QtCore.framework/Headers/qstringlist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 qrc_qml.o: qrc_qml.cpp 
